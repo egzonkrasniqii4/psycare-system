@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: psycare
+      POSTGRES_USER: psycare
+      POSTGRES_PASSWORD: psycare
+    ports:
+      - "5432:5432"
+    volumes:
+      - psycare_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U psycare -d psycare"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  psycare_pg:
